@@ -339,6 +339,8 @@ var spellChispasMulti_12 = {school:"Divine",frames:24,name:"<span style='backgro
 var spellCoins = {school:"na",frames:20,name:"Coin"}
 var spellSleep_24 = {school:"na",frames:24,name:"Sleep"}
 var spellMultiDivine_28 = {school:"na",frames:28,name:"Divine interaction"}
+var spellMiniDados_18 = {school:"na",frames:18,name:"Dice"}
+
 
 var spellTier0 = "spellPush1,spellPush2,spellPush3,spellPush4,spellPush5,spellPush6"
 var spellTier1 = "spellPush7,spellPush8,spellPush9,spellPush10"
@@ -522,6 +524,7 @@ function checkDB(){
     //if(!localStorage[thx("fHealinn")]){setLocal("fHealinn", 0.3)};
     if(!localStorage[thx("pStudy")]){setLocal("pStudy", 0.1)};//0.25 down because it is the triple in this versio
     if(!localStorage[thx("pBotin")]){setLocal("pBotin", 0.2)};
+    if(!localStorage[thx("pDados")]){setLocal("pDados", 0.2)};
     if(!localStorage[thx("pChangeZone")]){setLocal("pChangeZone", 0.35)};
     if(!localStorage[thx("allowChangeZone")]){setLocal("allowChangeZone", 1)};//1 means equal to pChangeZone, 0 means avoid changeZone at all
     if(!localStorage[thx("pGetBoss")]){setLocal("pGetBoss", 0.015)};//0.015
@@ -825,7 +828,7 @@ function animateNPC() {
 
 
 //Spell animation  //spell("spellRingYellow_8",true,frameWidth,frameHeight,currentFrame,shift)
-function spell(img,pj,frameWidth,frameHeight,currentFrame,shift,critic=0){
+function spell(img,pj,frameWidth,frameHeight,currentFrame,shift,critic=0,center=0){
 
     //avoid spell animation in high speed debug
     if(masterTime < 500){return}
@@ -855,6 +858,11 @@ function spell(img,pj,frameWidth,frameHeight,currentFrame,shift,critic=0){
         var multiSize = 1.5;
         var topMultiHeadLocation = 0.5;
         var leftMultiHeadLocation = 0.96;
+    //center spell
+    }else if(center){
+        var multiSize = 1;
+        var topMultiHeadLocation = 1;
+        var leftMultiHeadLocation = 3.5;
     }else{
         var multiSize = 1;
         var topMultiHeadLocation = 1;
@@ -971,7 +979,26 @@ function exploreEV() {
         objectToBreak = "";
         print("<b>" + getLocal("pjName") + "</b> is searching...");
         eventClock = setInterval(getBotin, masterTime);
-    } else {
+    //go to dice house, use the same probability
+    } else if (YesOrNot(getLocal("pDados"), 0) && getLocal("currentZone") == "la_Ciudad" || getLocal("currentZone") == "el_Poblado"){
+        //check if gold is more than 0
+        if(Number(getLocal("Gold")) > 0){
+            //call the game function
+            if (previousEvent == "sixfivefour"){
+                var textDice = pickRandomItem("decides come back to the gaming house, returns to the dice house,wants to spend more coins at the gaming house");
+            }else{
+                var textDice = pickRandomItem("finds a gamming house and enters,wants to play 6-5-4,wants to gambling");
+            }
+            print("<b>" + getLocal("pjName") + "</b> " + textDice);
+            loadBackground(getLocal("currentZone") + "_casadados");
+            loadNPC("jugon");
+            previousEvent = "sixfivefour"
+            eventClock = setInterval(sixfivefour, masterTime);       
+        }else{
+            print("<b>" + getLocal("pjName") + "</b> " + "finds a gamming house but does not have gold to bet");
+            eventMasterClock = setInterval(event, masterTime);
+        }
+    }else {
         if (YesOrNot(Number(getLocal("pChangeZone")) * Number(getLocal("allowChangeZone")), 0)) {
             print("<b>" + getLocal("pjName") + "</b> is exploring...");
             eventClock = setInterval(changeLocality, masterTime);
@@ -988,7 +1015,6 @@ function exploreEV() {
 //ToDo:
 //robbed!
 //rest { chance to be robbed}
-//Dices!
 //found materials
 //quest? check the scrolls at http://pousse.rapiere.free.fr/tome/tiles/DO/tome-doitemstiles.htm
 
@@ -2012,6 +2038,14 @@ function healEV() {
     
 };
 
+
+
+
+
+//Card combat game
+function cardCombat(){
+
+}
 
 //////////////////////////////END MECHANISM REGION////////////////////////////////
 //------------------------------------------------------------------------------//
@@ -3856,9 +3890,293 @@ function afterChapter(){
 
 
 
+//TODO add idx for all this part and archievements
+//temp dicegame
+//define dice and set 1 as default
+var dicesToRoll = {a: 1,b: 1,c: 1,d: 1,e: 1}
+var ship = false;
+var captain = false;
+var crew = false;
+var cargo = 0;
+var cargoFirstPlayer = 0;
+var nameFirstPlayer = ""
+var riskinDice = 7;
+var countRounds = 0;
+var currentHand = "";
+var symbolCurrentHand = "";
+var currentPlayerDice = ""
+var gamblingManName = "<i>Gambling man</i>"
+var isRolling = false
+var resultDice = "";
+var betForDice = 0;
+
+
+//Start the game Six Five Four
+function sixfivefour(){
+    //calculate the risk (amount of cargo that consider risky)
+    riskinDice = Math.floor(Math.random() * (10 - 6) ) + 6;
+    //determine if the opponent start or the wizard
+    var enemyStart = Math.random() >= 0.5;
+    //declare bet
+    betForDice = getRandomInt(Number(getLocal("Gold")) * 0.1,Number(getLocal("Gold")) * 0.5)
+    playSound("coins");
+
+    //console.log("enemy start: " + enemyStart)
+    if (enemyStart){
+        nameDicePlayer = gamblingManName
+    } else {
+        nameDicePlayer = "<b>" + getLocal("pjName") + "</b> "
+    }
+
+    
+
+    countRounds++
+    //spell("spellCoins",false,frameWidth,frameHeight,currentFrame,shift);
+    //spell("spellCoins",true,frameWidth,frameHeight,currentFrame,shift);
+    //set or equal the bet
+    setLocal("Gold", Number(getLocal("Gold")) - betForDice);
+    updateHeading();
+    print(nameDicePlayer + " starts the game and suggest a bet of " + goldIcon + roundNumbertoLetter(betForDice))
+
+    
+
+    clearInterval(eventClock);
+    eventClock = setInterval( function() { rollDicesForSixfivefour(enemyStart,nameDicePlayer); }, masterTime);
+}
+
+
+//Mechanism for the game Six Five Four
+function rollDicesForSixfivefour(enemyStart, nameDicePlayer) {
+    multipleEventsCounter += 1;
+    
+    //switch between rolling and results
+    isRolling = !isRolling
+
+    //detect if is rolling or presenting the result
+    if (isRolling){
+        //Roll if cargo is <= risknumber, this is usefull to skip the last rollings in case the player has a good amoung of points
+
+        if (cargo < riskinDice || cargo <= cargoFirstPlayer){
+
+            //animate thow dice
+            if (nameDicePlayer == gamblingManName){
+                if (document.hasFocus()){animateClockNPC = setInterval(animateNPC, 100)};
+            }else{
+                if (document.hasFocus()){animateClock = setInterval(animatePJ, 100)};
+            }
+            spell("spellMiniDados_18",true,frameWidth,frameHeight,currentFrame,shift,false,true);
+            playSound("dice");
+
+
+            //console.log("risk: " + riskinDice)
+            //Set a dialog if the risk is too high
+            if (riskinDice > cargo && ship && captain && crew){
+                print(nameDicePlayer + " feels risky and rolls the dice to try a better cargo")
+            }else if(cargo <= cargoFirstPlayer && ship && captain && crew){
+                print(nameDicePlayer + " rolls the dice to try to get more cargo")
+            }else{
+                if (multipleEventsCounter == 3){
+                    print(nameDicePlayer + " rolls the dice again " + ((symbolCurrentHand != '') ? '(' : '') + symbolCurrentHand + ((symbolCurrentHand != '') ? ')' : ''))
+                }else if (multipleEventsCounter == 5){
+                    print(nameDicePlayer + " plays the last turn " + ((symbolCurrentHand != '') ? '(' : '') + symbolCurrentHand + ((symbolCurrentHand != '') ? ')' : ''))
+                }else{
+                    print(nameDicePlayer + " rolls the dice")
+                }
+            }
+            
+
+            resultDice = "";
+            //for each element in the dicesToRoll object put a randon from 1 to 6
+            for (let elem in dicesToRoll) {
+                dicesToRoll[elem] = Math.floor(Math.random() * 6 + 1)
+                // "dado: " + elem + " roll: " + dicesToRoll[elem]
+                //console.log("dado: " + elem + " roll: " + dicesToRoll[elem])
+                //save current roll (to avoid delete info in the next steps) with images
+                resultDice = resultDice + "<img class='imgInConsole' height='" + em + "' src='img/d" + dicesToRoll[elem] +".png'/>"
+            }
+            
+
+        
+            //check if some dice is 6 an delete the dice and set ship true
+            for (let elem in dicesToRoll){
+                if(dicesToRoll[elem] == 6 && !ship){
+                    delete dicesToRoll[elem];
+                    ship = true
+                    currentHand = "<img class='imgInConsole' height='" + em + "' src='img/d6.png'/>:<img class='imgInConsole' height='" + em + "' src='img/ship.png'/> "
+                    symbolCurrentHand = "<img class='imgInConsole' height='" + em + "' src='img/ship.png'/>"
+                    //console.log("ship: " + ship)
+                }
+            }
+            //check if some dice is 5 an delete the dice and set captain true
+            for (let elem in dicesToRoll){
+                if(dicesToRoll[elem] == 5 && ship && !captain){
+                    delete dicesToRoll[elem];
+                    captain = true
+                    currentHand += "<img class='imgInConsole' height='" + em + "' src='img/d5.png'/>:<img class='imgInConsole' height='" + em + "' src='img/captain.png'/> "
+                    symbolCurrentHand += "<img class='imgInConsole' height='" + em + "' src='img/captain.png'/>"
+                    //console.log("captain: " + captain)
+                }
+            }
+            //check if some dice is 4 an delete the dice and set crew true
+            for (let elem in dicesToRoll){
+                if(dicesToRoll[elem] == 4 && ship && captain && !crew){
+                    delete dicesToRoll[elem];
+                    crew = true
+                    currentHand += "<img class='imgInConsole' height='" + em + "' src='img/d4.png'/>:<img class='imgInConsole' height='" + em + "' src='img/crew.png'/> "
+                    symbolCurrentHand += "<img class='imgInConsole' height='" + em + "' src='img/crew.png'/>"
+                    //console.log("crew: " + crew)
+                }
+            }
+        
+            //check the cargo and roll if is less than 7 (most probable number for two dices)
+            if(ship && captain && crew ){
+                //reset cargo in case need a second rolling of risk
+                cargo = 0;
+                for (let elem in dicesToRoll){
+                        cargo = cargo + dicesToRoll[elem]
+                }
+                //console.log("cargo: " + cargo)
+            }
+
+        }else{
+            
+            clearInterval(eventClock);
+            multipleEventsCounter = 0;
+            print(nameDicePlayer + " thinks the cargo is enought and skip")
+            //va a eval
+            eventClock = setInterval( function() { evalSixFiveFour(enemyStart,nameDicePlayer); }, masterTime );
+        }
+
+
+}
+//display the results of each roll in a separate line of print
+else{
+
+    //print result
+    print(nameDicePlayer + " gets " + resultDice + ((currentHand != '') ? ' and banks ' +  currentHand : '') )
+
+    currentHand = "";
+    symbolCurrentHand = "";
+
+    if (multipleEventsCounter == 6){
+        clearInterval(eventClock);
+        multipleEventsCounter = 0;
+        
+        //eval
+        eventClock = setInterval( function() { evalSixFiveFour(enemyStart,nameDicePlayer); }, masterTime );
+    }
+}
+}
 
 
 
+
+
+
+//eval the game, if is the first round, pass to the next player
+function evalSixFiveFour(enemyStart, nameDicePlayer){
+    //Evaluate the current round
+    if (ship && captain && crew){print(nameDicePlayer + " set sail with " + cargo + " of cargo")}
+    if (ship && captain && !crew){print(nameDicePlayer + " got a ship and captain but no the crew, does not set sail (" + cargo + ")")}
+    if (ship && !captain && !crew){print(nameDicePlayer + " got a ship but neither captain nor crew were available, does not set sail (" + cargo + ")")}
+    if (!ship && !captain && !crew){print(nameDicePlayer + " got nothing (" + cargo + ")")}
+
+
+       //Start the second round
+        if (countRounds == 1){
+            cargoFirstPlayer = cargo;
+            nameFirstPlayer = nameDicePlayer;
+            countRounds++
+            if (!enemyStart){nameDicePlayer = gamblingManName} else {nameDicePlayer = "<b>" + getLocal("pjName") + "</b> "}
+            resetSixFiveFour()
+            clearInterval(eventClock);
+            eventClock = setInterval( function() { rollDicesForSixfivefour(!enemyStart,nameDicePlayer); }, masterTime );
+        }else{
+            //Final scoring call
+            //multipleEventsCounter = 0;
+            clearInterval(eventClock);
+            eventClock = setInterval( function() { finalScoreSixFiveFour(nameDicePlayer); }, masterTime );
+        }
+
+    
+     
+
+}
+
+/*
+spell("spellCoins",true,frameWidth,frameHeight,currentFrame,shift);
+setLocal("Gold", Number(getLocal("Gold")) - betForDice);
+updateHeading();
+*/
+
+//calculate the final result and check the winner
+function finalScoreSixFiveFour(nameDicePlayer){
+
+    multipleEventsCounter += 1;
+    switch (multipleEventsCounter){
+        case 1:
+            countRounds = 0
+            tie = cargoFirstPlayer == cargo
+            
+            if (!tie){
+                firstPlayerWins = cargoFirstPlayer > cargo;
+                if(firstPlayerWins){
+                    print(nameFirstPlayer + " wins " + goldIcon + roundNumbertoLetter(betForDice * 2) + " (" + cargoFirstPlayer + " vs. " + cargo + ") ")
+                    var winnerDice = nameFirstPlayer;
+                }else{
+                    print(nameDicePlayer + " wins " + goldIcon + roundNumbertoLetter(betForDice * 2) + " (" + cargoFirstPlayer + " vs. " + cargo + ") ")
+                    var winnerDice = nameDicePlayer;
+                }
+
+                if (winnerDice == gamblingManName){
+                    playSound("coins");
+                    spell("spellCoins",false,frameWidth,frameHeight,currentFrame,shift);
+                }else{
+                    playSound("coins");
+                    spell("spellCoins",true,frameWidth,frameHeight,currentFrame,shift);
+                    setLocal("Gold", Number(getLocal("Gold")) + betForDice * 2);
+                    updateHeading();
+                }
+
+            }else{
+                print("Nobody won (" + cargoFirstPlayer + " vs. " + cargo + ")")
+                //spell("spellCoins",true,frameWidth,frameHeight,currentFrame,shift);
+                setLocal("Gold", Number(getLocal("Gold")) + betForDice);
+                updateHeading();
+            }
+        break;
+        case 2:
+            print("<b>" + getLocal("pjName") + "</b> exits the gaming house");
+            cargoFirstPlayer = 0;
+            resetSixFiveFour()
+            npcCanvas.getContext("2d").clearRect(0, 0, npcCanvas.width, npcCanvas.height);
+            setLocal("currentNpc", "");
+            loadBackground(getLocal("currentZone") +  getLocal("currentStage"));
+            restAtInn = false;
+            multipleEventsCounter = 0;
+            clearInterval(eventClock);
+            eventMasterClock = setInterval(event, masterTime);
+    }
+}
+
+
+//reset game
+function resetSixFiveFour(){
+    nameDicePlayer = ""
+     currentHand = "";
+     symbolCurrentHand = "";
+     dicesToRoll = {a: 1,b: 1,c: 1,d: 1,e: 1};
+     ship = false;
+     captain = false;
+     crew = false;
+     cargo = 0;
+     isRolling = false
+     diceRolled = ""
+}
+
+
+
+//BUG: when the wizard is killed and start again another one, maybe some clocks are still running and have some problems
 
 ///////////////////////
 ///////////////////////
