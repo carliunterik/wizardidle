@@ -7,6 +7,7 @@
 // ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝//
 ////////////////////////////////////////////////////////////////////////////////////
 //Definitions
+//Author:  Carlos Alonso Maya Lastra
 if(!localStorage[thx("firstUse")]){setLocal("firstUse", "true")};
 // #region Define vars
 var version = "26jul2018_6pm";
