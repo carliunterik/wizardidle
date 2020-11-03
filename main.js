@@ -2675,11 +2675,11 @@ function layoutPortrait(){
      
 	//test new organization, scene top
     document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.1 + "px";
-    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.2) + "px";
-    document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.2) + "px";
-    document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.2) + "px";
-    document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.2) + "px";
-    document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
+    document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
+    document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
+    document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
+    document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.2) + "px";
     document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
 	//end test new organization
 	
