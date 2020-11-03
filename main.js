@@ -52,6 +52,7 @@ var scrollIDContent;
 var pjDead = false;
 var disablePjBtn = false;
 var disableCenterBtn = false;
+var sceneOnTop = true;
 var currentBackGround;
 var autorevive;
 var audio;
@@ -2665,23 +2666,33 @@ function layoutPortrait(){
 
     //tops
     document.getElementById("main").style.top = window.innerHeight * 0.005 + "px";
-//     document.getElementById("console").style.top = parseInt(headingH) + parseInt(headingH) * 0.2 + "px";
-//     document.getElementById("backConsole").style.top = headingH;
-//     document.getElementById("marco").style.top = parseInt(headingH) + parseInt(backConsoleH) + "px";
-//     document.getElementById("esceneCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
-//     document.getElementById("pjCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
-//     document.getElementById("npcCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
-//     document.getElementById("spellCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
-     
-	//test new organization, scene top
-    document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.1 + "px";
-    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
-    document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
-    document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
-    document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.18) + "px";
-    document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.2) + "px";
-    document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+
+    // define if scene is on top of console, if not invert (useful when scroll is desplayed)
+    if (sceneOnTop){
+    	//test new organization, scene top
+    	document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.1 + "px";
+    	document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+    	document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+    	document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+    	document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+	document.getElementById("pjDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+	document.getElementById("npcDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+	document.getElementById("centerDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+    	document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.2) + "px";
+    	document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
 	//end test new organization
+    }else {
+	    document.getElementById("console").style.top = parseInt(headingH) + parseInt(headingH) * 0.2 + "px";
+	    document.getElementById("backConsole").style.top = headingH;
+	    document.getElementById("marco").style.top = parseInt(headingH) + parseInt(backConsoleH) + "px";
+	    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("pjCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("npcCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("spellCanvas").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("pjDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("npcDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("centerDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+    }
 	
     document.getElementById("indicadores").style.top = (objectSize * 0.09375) * 1.57 + "px";
     document.getElementById("XPprogressBar").style.top = (objectSize * 0.09375) * 1.125 + "px";
@@ -2708,10 +2719,6 @@ function layoutPortrait(){
     document.getElementById("scrollBackUp").style.top = objectSize * 0.02 + "px";
     document.getElementById("btnClose").style.top = objectSize * 0.065 + "px";
     document.getElementById("scrollText").style.top = objectSize * 0.065 + "px";
-
-    document.getElementById("pjDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("npcDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("centerDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
 
     document.getElementById("backMapa").style.top = objectSize * 0.1 + "px";
     
