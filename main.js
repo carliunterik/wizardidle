@@ -2671,15 +2671,16 @@ function layoutPortrait(){
     if (sceneOnTop){
     	//test new organization, scene top
     	document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.1 + "px";
-    	document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
-    	document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
-    	document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
-    	document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
-	document.getElementById("pjDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
-	document.getElementById("npcDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
-	document.getElementById("centerDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.17) + "px";
+    	document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
+    	document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
+    	document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
+    	document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
+		document.getElementById("pjDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
+		document.getElementById("npcDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
+		document.getElementById("centerDivineBtn").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.165) + "px";
     	document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.2) + "px";
     	document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+		document.getElementById("statusText").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.2) + (parseInt(backConsoleH) * 0.925) + "px";
 	//end test new organization
     }else {
 	    document.getElementById("console").style.top = parseInt(headingH) + parseInt(headingH) * 0.2 + "px";
@@ -2692,6 +2693,7 @@ function layoutPortrait(){
 	    document.getElementById("pjDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
 	    document.getElementById("npcDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
 	    document.getElementById("centerDivineBtn").style.top = parseInt(headingH) + parseInt(backConsoleH) + (parseInt(marcoH) * 0.1) + "px";
+	    document.getElementById("statusText").style.top = parseInt(headingH) + (parseInt(backConsoleH) * 0.925) + "px";
     }
 	
     document.getElementById("indicadores").style.top = (objectSize * 0.09375) * 1.57 + "px";
@@ -2702,7 +2704,6 @@ function layoutPortrait(){
     document.getElementById("btn5").style.top = objectSize * 0.11 + "px";
     document.getElementById("btn3").style.top = objectSize * 0.01 + "px";
     document.getElementById("btn6").style.top = objectSize * 0.11 + "px";
-    document.getElementById("statusText").style.top = parseInt(headingH) + (parseInt(backConsoleH) * 0.925) + "px";
     //document.getElementById("nubes").style.top = "0px";
     document.getElementById("title1").style.top = window.innerHeight * 0.1 + "px";
     document.getElementById("title2").style.top = window.innerHeight * 0.20 + "px";
@@ -2907,7 +2908,7 @@ function scrollClose(){
 
     //crate a event that listen the css transition, and after that remove the listener in hideScrollContent
     el.addEventListener("transitionend", hideScrollContent);
-      
+	sceneOnTop = true;      
   }
 
 //show the close button only when the scroll is totally opened
@@ -2942,7 +2943,7 @@ function scrollOpen(currentContent,height = (window.innerHeight - (objectSize * 
     sbd.style.top = height * 0.97 + "px";
 
     el.addEventListener("transitionend", showCloseButton);
-
+	sceneOnTop = false;
   }
 
 
