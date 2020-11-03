@@ -2908,7 +2908,10 @@ function scrollClose(){
 
     //crate a event that listen the css transition, and after that remove the listener in hideScrollContent
     el.addEventListener("transitionend", hideScrollContent);
-	sceneOnTop = true;      
+	
+	//switch positions scene and console
+	sceneOnTop = true;
+	layoutPortrait()
   }
 
 //show the close button only when the scroll is totally opened
@@ -2926,7 +2929,7 @@ function scrollOpen(currentContent,height = (window.innerHeight - (objectSize * 
 
     var orientation = screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type;
     if (!!orientation.match("landscape") && detectmob()){
-        height = window.innerHeight * 0.9;
+        height = window.innerHeight * 0.92;
     }
 
     disableMainButtons()
@@ -2943,7 +2946,10 @@ function scrollOpen(currentContent,height = (window.innerHeight - (objectSize * 
     sbd.style.top = height * 0.97 + "px";
 
     el.addEventListener("transitionend", showCloseButton);
+
+	//switch positions scene and console
 	sceneOnTop = false;
+	layoutPortrait()
   }
 
 
