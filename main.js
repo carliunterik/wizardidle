@@ -2677,7 +2677,7 @@ function layoutPortrait(){
     document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.2 + "px";
     document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.15) + "px";
     document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.2) + "px";
-    document.getElementById("npcCanvas").style.top = parseInt(headingH) + parseInt(marcoH) * 0.25) + "px";
+    document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.25) + "px";
     document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.3) + "px";
     document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + "px";
     document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + "px";
