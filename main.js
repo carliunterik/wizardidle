@@ -2675,13 +2675,13 @@ function layoutPortrait(){
      
 	//test new organization, scene top
     document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.2 + "px";
-    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("npcCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("console").style.top = parseInt(headingH) + parseInt(backConsoleH) + parseInt(marcoH) + "px";
+    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+    document.getElementById("pjCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+    document.getElementById("npcCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+    document.getElementById("spellCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+    document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + "px";
     document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + "px";
-	
+	//end test new organization
 	
     document.getElementById("indicadores").style.top = (objectSize * 0.09375) * 1.57 + "px";
     document.getElementById("XPprogressBar").style.top = (objectSize * 0.09375) * 1.125 + "px";
