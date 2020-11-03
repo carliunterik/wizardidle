@@ -2890,6 +2890,10 @@ function hideScrollContent(){
     document.getElementById('innerTextScroll').innerHTML='';
     document.getElementById("scroll").style.zIndex = 0;
     document.getElementById("scrollBackCenter").removeEventListener("transitionend", hideScrollContent)
+	
+	//switch positions scene and console
+	sceneOnTop = true;
+	layoutPortrait()
 }
   
 // scroll close 
@@ -2909,15 +2913,16 @@ function scrollClose(){
     //crate a event that listen the css transition, and after that remove the listener in hideScrollContent
     el.addEventListener("transitionend", hideScrollContent);
 	
-	//switch positions scene and console
-	sceneOnTop = true;
-	layoutPortrait()
   }
 
 //show the close button only when the scroll is totally opened
 function showCloseButton(){
     document.getElementById("btnClose").style.display = "block";
     document.getElementById("scrollBackCenter").removeEventListener("transitionend", showCloseButton)
+
+	//switch positions scene and console
+	sceneOnTop = false;
+	layoutPortrait()
 }
 
 // scroll open
@@ -2946,10 +2951,6 @@ function scrollOpen(currentContent,height = (window.innerHeight - (objectSize * 
     sbd.style.top = height * 0.97 + "px";
 
     el.addEventListener("transitionend", showCloseButton);
-
-	//switch positions scene and console
-	sceneOnTop = false;
-	layoutPortrait()
   }
 
 
