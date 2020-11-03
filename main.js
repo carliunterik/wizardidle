@@ -525,7 +525,7 @@ function checkDB(){
     //if(!localStorage[thx("fHealinn")]){setLocal("fHealinn", 0.3)};
     if(!localStorage[thx("pStudy")]){setLocal("pStudy", 0.1)};//0.25 down because it is the triple in this versio
     if(!localStorage[thx("pBotin")]){setLocal("pBotin", 0.2)};
-    if(!localStorage[thx("pDados")]){setLocal("pDados", 0.2)};
+    if(!localStorage[thx("pDados")]){setLocal("pDados", 0.1)};//0.2 down because is too much chance to stuck in dice game
     if(!localStorage[thx("pChangeZone")]){setLocal("pChangeZone", 0.35)};
     if(!localStorage[thx("allowChangeZone")]){setLocal("allowChangeZone", 1)};//1 means equal to pChangeZone, 0 means avoid changeZone at all
     if(!localStorage[thx("pGetBoss")]){setLocal("pGetBoss", 0.015)};//0.015
