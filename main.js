@@ -2893,7 +2893,7 @@ function hideScrollContent(){
 	
 	
 	//switch positions scene and console
-	sceneOnTop = false;
+	sceneOnTop = true;
 	layoutPortrait()
 }
   
@@ -2950,7 +2950,7 @@ function scrollOpen(currentContent,height = (window.innerHeight - (objectSize * 
     el.addEventListener("transitionend", showCloseButton);
 	
 		//switch positions scene and console
-	sceneOnTop = true;
+	sceneOnTop = false;
 	layoutPortrait()
   }
 
