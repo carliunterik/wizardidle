@@ -10,7 +10,7 @@
 //Author:  Carlos Alonso Maya Lastra
 if(!localStorage[thx("firstUse")]){setLocal("firstUse", "true")};
 // #region Define vars
-var version = "26jul2018_6pm";
+var version = "02nov2020_10pm"; //26jul2018_6pm
 var uniqueID;
 var objectSize = defineObjectSize();
 var headLevel = objectSize * 0.109375;//56;
@@ -2675,10 +2675,10 @@ function layoutPortrait(){
      
 	//test new organization, scene top
     document.getElementById("marco").style.top = parseInt(headingH) + parseInt(headingH) * 0.2 + "px";
-    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("pjCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("npcCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
-    document.getElementById("spellCanvas").style.top = parseInt(headingH) + parseInt(marcoH) + (parseInt(marcoH) * 0.1) + "px";
+    document.getElementById("esceneCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.15) + "px";
+    document.getElementById("pjCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.2) + "px";
+    document.getElementById("npcCanvas").style.top = parseInt(headingH) + parseInt(marcoH) * 0.25) + "px";
+    document.getElementById("spellCanvas").style.top = parseInt(headingH) + (parseInt(marcoH) * 0.3) + "px";
     document.getElementById("console").style.top = parseInt(headingH) + parseInt(marcoH) + "px";
     document.getElementById("backConsole").style.top = parseInt(headingH) + parseInt(marcoH) + "px";
 	//end test new organization
