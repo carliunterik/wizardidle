@@ -16,11 +16,6 @@
     "src": "wizardidle/img/icon.png",
     "type": "image/png",
     "sizes": "96x96"
-  },
-  {
-    "src": "wizardidle/img/icon192.png",
-    "type": "image/png",
-    "sizes": "192x192"
   }
 ]
 }
