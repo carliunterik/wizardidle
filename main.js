@@ -3099,7 +3099,7 @@ if ('serviceWorker' in navigator) {
   
               case 'redundant':
                 document.getElementById("statusText").innerHTML=".";
-                console.error('[Service Worker] (?) The installing service worker became redundant.');
+                // console.error('[Service Worker] (?) The installing service worker became redundant.');
                 // if ('storage' in navigator && 'estimate' in navigator.storage) {
                 //     navigator.storage.estimate().then(function(results) {
                 //       var percentUsed = (results.usage / results.quota) * 100;
@@ -3111,7 +3111,7 @@ if ('serviceWorker' in navigator) {
                 navigator.storage.estimate().then(({usage, quota}) => {
                     console.log(`Using ${usage} out of ${quota} bytes.`);
                   }).catch(error => {
-                    console.error('Loading storage estimate failed:');
+                    // console.error('Loading storage estimate failed:');
                     console.log(error.stack);
                   });
                   
